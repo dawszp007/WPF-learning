@@ -1,5 +1,4 @@
-Amadeusz|Zings|49|66
-Wojciech|Kowalczyk|45|81
-Adam|Kowal|32|69
-Marian|Kopeć|29|72
-Szpunar|Dawid|25|75
+Zings|Amadeusz|49|66
+Kowalczyk|Wojciech|45|81
+Kowal|Adam|32|69
+Kopeć|Marian|29|72

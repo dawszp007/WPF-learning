@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="PilkarzeMVVM.View.TextBoxForLetters"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!--Obszerny komentarz co dzieje się poniżej
+            Powiązanie własności Text z pola TextBox z własnością Text utworzoną przez nas w kotrolce użytkownika
+             W związku z tym, że własność ta jest własnością zależną konieczne jest określenie jej źródła RelativeSource
+             i wskazujey na rodzica będącego typu UserControl:
+                            RelativeSource={
+                                      RelativeSource Mode=FindAncestor,
+                                      AncestorType={x:Type UserControl}
+                                   }
+            Mode=OneWayToSource
+          ustala, że powiązanie odbywa się tylko w jednym kierunku tzn od kontrolki do własności zaleznej
+            UpdateSourceTrigger=PropertyChanged
+          ustawia, że wiązanie odbywa się po każdej zmianie zachodzącej w polu tekstowym
+        -->
+
+        <!-- Zmiana na twoway żeby widok mógł aktualizować-->
+
+        <TextBox x:Name="textBox" x:FieldModifier="private"
+                 PreviewTextInput="textBox_PreviewTextInput" PreviewKeyDown="textBox_PreviewKeyDown"
+                 TextChanged="textBox_TextChanged"
+                 Text="{
+                        Binding Path=Text,
+                        Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged,
+                        RelativeSource={
+                                        RelativeSource Mode=FindAncestor,
+                                        AncestorType={x:Type UserControl}
+                                       }
+                     }" />
+    </Grid>
+</UserControl>
