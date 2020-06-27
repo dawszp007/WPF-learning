@@ -1,0 +1,54 @@
+﻿<Window x:Class="MiniTC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiniTC"
+        xmlns:view="clr-namespace:MiniTC.View"
+        xmlns:view_model="clr-namespace:MiniTC.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MiniTC" Height="600" Width="700" MinHeight="300" MinWidth="500">
+    <Window.Resources>
+        <view_model:Manager x:Key="instanceOfViewModel"/>
+    </Window.Resources>
+    <Grid Margin="5" Background="Black" DataContext="{StaticResource ResourceKey=instanceOfViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <view:Panel DrivesList="{Binding Path=Drives,Mode=OneWay}" FilesList="{Binding Path=LeftFiles,Mode=OneWay}" Path="{Binding Path=LeftPath,Mode=OneWay}"
+                      SelectedDrive="{Binding Path=LeftDrive,Mode=TwoWay}" CurrItem="{Binding Path=CurrentLeft,Mode=TwoWay}" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,341.2,29.2" Loaded="Load" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DriveChanged">
+                    <i:InvokeCommandAction Command="{Binding LDrvChanged}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding LDirChanged}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </view:Panel>
+
+
+        <view:Panel DrivesList="{Binding Path=Drives,Mode=OneWay}" FilesList="{Binding Path=RightFiles,Mode=OneWay}" Path="{Binding Path=RightPath,Mode=OneWay}"
+                      SelectedDrive="{Binding Path=RightDrive,Mode=TwoWay}" CurrItem="{Binding Path=CurrentRight,Mode=TwoWay}" Grid.Column="1" Margin="0.4,0,0.2,29.2" Loaded="LoadPanel2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DriveChanged">
+                    <i:InvokeCommandAction Command="{Binding RDirChanged}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding RightDirChanged}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </view:Panel>
+
+
+        <Button Content="Copy" Grid.ColumnSpan="2" Grid.Row="1" Margin="213,4.8,213.2,5" Command="{Binding Copy}"/>
+        <TextBlock Text="*Aby przejść do folderu lub wybrać plik do skopiowania należy dwukrotnie kliknąć w niego prawym przyciskiem myszy*" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="0" Margin="20,482,0.2,29.2"  Width="663" Height="20" Foreground="White" />
+    </Grid>
+</Window>
